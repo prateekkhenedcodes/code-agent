@@ -1,6 +1,6 @@
 from functions.get_files_info import get_files_info
 
-if __name__ == "__main__":
+def test():
     # Test case 1
     print("Result for current directory:")
     result1 = get_files_info("calculator", ".")
@@ -20,3 +20,6 @@ if __name__ == "__main__":
     print("Result for '../' directory:")
     result4 = get_files_info("calculator", "../")
     print(result4)
+
+if __name__ == "__main__":
+    test()
