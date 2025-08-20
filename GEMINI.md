@@ -1,55 +1,61 @@
 # GEMINI.md
 
+## Project Status
+
+**State:** Functional with some issues.
+
+This project is a proof-of-concept demonstrating a CLI AI assistant and a simple calculator. The core functionalities are working. However, there are known issues:
+- The root `tests.py` is broken and references a non-existent module.
+- The `gemini` file in the root is an unnecessary HTML redirect and should be removed.
+- The project lacks automated testing, a consistent code style, and contribution guidelines.
+
 ## Project Overview
 
-This project is a command-line AI code assistant that uses the Gemini API. It allows users to interact with the Gemini large language model from their terminal. The project also includes a simple command-line calculator application.
+This project contains two primary command-line applications:
+1.  **AI Code Assistant:** A CLI tool that sends user prompts to the Gemini API and streams the response.
+2.  **Calculator:** A simple CLI expression evaluator.
 
-The project is written in Python and uses the `google-genai` library to interact with the Gemini API. It is structured into three main parts:
+The project is written in Python and structured as follows:
 
-*   **AI Code Assistant:** The main entry point for the AI assistant is `main.py`. It takes a user prompt as a command-line argument and prints the response from the AI model.
-*   **Calculator:** The calculator is a separate application located in the `calculator` directory. It can evaluate mathematical expressions from the command line.
-*   **Helper Functions:** The `functions` directory contains helper functions for reading file content and getting file information.
+-   `main.py`: The entry point for the AI assistant. It uses the `gemini-2.0-flash-001` model.
+-   `calculator/`: Contains the calculator application (`main.py`), its core logic (`pkg/calculator.py`), and a comprehensive test suite (`tests.py`).
+-   `functions/`: Contains helper functions for file system operations with built-in security checks.
+-   `config.py`: A configuration file, currently used to define `MAX_CHARS` for file reading.
+-   `pyproject.toml`: Defines project metadata and dependencies.
 
 ## Building and Running
 
 ### Dependencies
 
-The project uses [uv](https://github.com/astral-sh/uv) for package management. The dependencies are listed in the `pyproject.toml` file and locked in `uv.lock`.
+The project uses [uv](https://github.com/astral-sh/uv) for package management. The dependencies are defined in `pyproject.toml`.
 
-To install the dependencies, run the following command:
-
+To install the dependencies, run:
 ```bash
 uv pip install -r requirements.txt
 ```
 
-**TODO:** Create a `requirements.txt` file from `pyproject.toml`.
+You can generate the `requirements.txt` file from `pyproject.toml` with the following command:
+```bash
+uv pip freeze > requirements.txt
+```
 
 ### Running the AI Code Assistant
 
-To run the AI code assistant, you need to have a Gemini API key. You can get one from the [Google AI Studio](https://aistudio.google.com/).
+To run the AI code assistant, you need a Gemini API key from [Google AI Studio](https://aistudio.google.com/).
 
-Once you have your API key, create a `.env` file in the root of the project and add the following line:
-
-```
-GEMINI_API_KEY="YOUR_API_KEY"
-```
-
-Then, you can run the AI assistant from the command line:
-
-```bash
-python main.py "Your prompt here"
-```
-
-You can also use the `--verbose` flag to get more information about the API usage:
-
-```bash
-python main.py "Your prompt here" --verbose
-```
+1.  Create a `.env` file in the root of the project:
+    ```
+    GEMINI_API_KEY="YOUR_API_KEY"
+    ```
+2.  Run the assistant from the command line:
+    ```bash
+    python main.py "Your prompt here"
+    ```
+    Use the `--verbose` flag for more details on API usage.
 
 ### Running the Calculator
 
-To run the calculator, you can execute the `main.py` file in the `calculator` directory:
-
+To run the calculator, execute the `main.py` file in the `calculator` directory:
 ```bash
 python calculator/main.py "3 + 5"
 ```
@@ -58,21 +64,22 @@ python calculator/main.py "3 + 5"
 
 ### Testing
 
-The project uses the `unittest` framework for testing. The tests for the calculator are located in `calculator/tests.py`. The tests for the helper functions are in `tests.py`.
+The project uses the `unittest` framework.
 
-To run the tests, you can execute the test files directly:
-
-```bash
-python calculator/tests.py
-python tests.py
-```
+-   **Calculator Tests:** The calculator tests are in `calculator/tests.py` and are fully functional. They can be run directly:
+    ```bash
+    python calculator/tests.py
+    ```
+-   **Root Tests:** The `tests.py` file in the root directory is **broken** as it tries to import a non-existent module (`functions.write_file_content`).
 
 **TODO:** It is recommended to use a test runner like `pytest` to automatically discover and run all tests.
 
 ### Code Style
 
-The project does not currently enforce a specific code style. It is recommended to use a code formatter like `black` to ensure a consistent style.
+The project does not currently enforce a specific code style.
+**TODO:** It is recommended to use a code formatter like `black` to ensure a consistent style.
 
 ### Contribution Guidelines
 
-There are no contribution guidelines at the moment. It is recommended to create a `CONTRIBUTING.md` file with instructions for contributors.
+There are no contribution guidelines at the moment.
+**TODO:** It is recommended to create a `CONTRIBUTING.md` file with instructions for contributors.
