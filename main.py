@@ -4,6 +4,7 @@ from google import genai
 from google.genai import types
 import sys
 
+
 def main():
     load_dotenv()
 
@@ -21,19 +22,17 @@ def main():
 
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
-    
-    user_prompt = " ".join(args) 
+
+    user_prompt = " ".join(args)
 
     messages = [
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
 
-    
     if verbose:
         print(f"User prompt: {user_prompt}\n")
-    
-    generate_content(client, messages, verbose)
 
+    generate_content(client, messages, verbose)
 
 
 def generate_content(client, messages, verbose):
