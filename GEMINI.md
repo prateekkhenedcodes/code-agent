@@ -2,12 +2,9 @@
 
 ## Project Status
 
-**State:** Functional with some issues.
+**State:** Functional.
 
-This project is a proof-of-concept demonstrating a CLI AI assistant and a simple calculator. The core functionalities are working. However, there are known issues:
-- The root `tests.py` is broken and references a non-existent module.
-- The `gemini` file in the root is an unnecessary HTML redirect and should be removed.
-- The project lacks automated testing, a consistent code style, and contribution guidelines.
+This project is a proof-of-concept demonstrating a CLI AI assistant and a simple calculator. The core functionalities are working.
 
 ## Project Overview
 
@@ -20,8 +17,15 @@ The project is written in Python and structured as follows:
 -   `main.py`: The entry point for the AI assistant. It uses the `gemini-2.0-flash-001` model.
 -   `calculator/`: Contains the calculator application (`main.py`), its core logic (`pkg/calculator.py`), and a comprehensive test suite (`tests.py`).
 -   `functions/`: Contains helper functions for file system operations with built-in security checks.
--   `config.py`: A configuration file, currently used to define `MAX_CHARS` for file reading.
+    - `get_file_content.py`: Reads and returns the content of a specified file.
+    - `get_files_info.py`: Lists files in the specified directory along with their sizes.
+    - `run_python.py`: Executes a Python file and returns the output.
+    - `write_file_content.py`: Writes content to a file.
+-   `config.py`: A configuration file, currently used to define `MAX_CHARS` for file reading and `WORKING_DIR` for the AI assistant.
 -   `pyproject.toml`: Defines project metadata and dependencies.
+-   `prompts.py`: Contains the system prompt for the AI assistant.
+-   `call_function.py`: Maps function calls from the Gemini API to the actual Python functions.
+-   `tests.py`: A script to run some tests for the `functions` modules.
 
 ## Building and Running
 
@@ -64,13 +68,13 @@ python calculator/main.py "3 + 5"
 
 ### Testing
 
-The project uses the `unittest` framework.
+The project uses the `unittest` framework for the calculator.
 
 -   **Calculator Tests:** The calculator tests are in `calculator/tests.py` and are fully functional. They can be run directly:
     ```bash
     python calculator/tests.py
     ```
--   **Root Tests:** The `tests.py` file in the root directory is **broken** as it tries to import a non-existent module (`functions.write_file_content`).
+-   **Root Tests:** The `tests.py` file in the root directory is a simple script to test the `functions` modules.
 
 **TODO:** It is recommended to use a test runner like `pytest` to automatically discover and run all tests.
 
